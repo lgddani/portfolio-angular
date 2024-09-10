@@ -25,6 +25,7 @@
 	cursor: crosshair;
 	box-shadow: 0 0 5px var(--main-color);
 	transition: 0.3s ease;
+	max-height: 50rem;
 }
 
 .projects-card:hover{

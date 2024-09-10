@@ -18,9 +18,9 @@ export const projectsList: Project[] = [
     {
       img: '../../assets/img/proyecto3.jpg',
       alt: 'Juego con tecnologías web',
-      title: 'Puzzle',
-      description: 'Un entretenido juego de rompecabezas desarrollado con tecnologías web, diseñado para desafiar y entretener a los jugadores.',
-      link: 'https://10038-rdenriquez2.github.io/juego-memoria/',
+      title: 'Ley de la Fuerza',
+      description: 'Un sitio web sobre la Ley de la Fuerza que incluye teoría, simulaciones interactivas y un test; diseñados para hacer el aprendizaje más dinámico y accesible',
+      link: 'https://ley-fuerza.netlify.app/',
       showButton: true
     },
     {
@@ -35,15 +35,15 @@ export const projectsList: Project[] = [
       img: '../../assets/img/proyecto5.jpg',
       alt: 'Sistema web para óptica',
       title: 'Sistema Óptica',
-      description: 'Una solución integral para la gestión de una óptica, incluyendo inventario, registro de clientes y ventas.',
+      description: 'Una solución integral para la gestión de una óptica; incluyendo inventario, reporte de actividades, registro de clientes, control de productos y ventas.',
       link: '',
       showButton: false
     },
     {
       img: '../../assets/img/proyecto6.jpg',
       alt: 'API Rest de países',
-      title: 'CRUD Países',
-      description: 'Una aplicación que permite Crear, Leer, Actualizar y Eliminar registros de países, demostrando habilidades en el manejo de datos.',
+      title: 'Sistema de Países',
+      description: 'Una aplicación que permite el manejo de registros de países mediante API REST, demostrando habilidades en el manejo y control de datos.',
       link: '',
       showButton: false
     }
