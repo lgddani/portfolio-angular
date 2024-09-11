@@ -3,8 +3,8 @@
         Daniel <span>Enriquez</span>
     </a>
 
-  <i *ngIf="!menuActive" class="bx bx-menu" id="menu-icon" (click)="toggleMenu()"></i>
-  <i *ngIf="menuActive" class="bx bx-x" id="menu-icon" (click)="toggleMenu()"></i>
+    <i *ngIf="!menuActive" class="fa-solid fa-bars" id="menu-icon" (click)="toggleMenu()"></i>
+    <i *ngIf="menuActive" class="fa-solid fa-xmark" id="menu-icon" (click)="toggleMenu()"></i>
 
     <nav class="navbar" [class.active]="menuActive">
         <a href="#home">Inicio</a>

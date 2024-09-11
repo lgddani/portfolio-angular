@@ -1,42 +1,42 @@
 export const servicesList: Service[] = [
     {
-      icono: 'iconos bx bxl-html5',
+      icono: 'iconos fa-brands fa-html5',
       titulo: 'HTML 5',
     },
     {
-        icono: 'iconos bx bxl-css3',
+        icono: 'iconos fa-brands fa-css3-alt',
         titulo: 'CSS 3',
     },
     {
-        icono: 'iconos bx bxl-javascript',
+        icono: 'iconos fa-brands fa-js',
         titulo: 'JavaScript',
     },
     {
-        icono: 'iconos bx bxl-bootstrap',
+        icono: 'iconos fa-brands fa-bootstrap',
         titulo: 'Bootstrap',
     },
     {
-        icono: 'iconos bx bxl-angular',
+        icono: 'iconos fa-brands fa-angular',
         titulo: 'Angular',
     },
     {
-        icono: 'iconos bx bxl-nodejs',
+        icono: 'iconos fa-brands fa-node',
         titulo: 'NodeJS',
     },
     {
-        icono: 'iconos bx bxl-php',
+        icono: 'iconos fa-brands fa-php',
         titulo: 'PHP',
     },
     {
-        icono: 'iconos bx bxs-data',
+        icono: 'iconos fa-solid fa-database',
         titulo: 'MySQL',
     },
     {
-        icono: 'iconos bx bxl-mongodb',
+        icono: 'iconos fa-solid fa-leaf',
         titulo: 'MongoDB',
     },
     {
-        icono: 'iconos bx bxl-git',
+        icono: 'iconos fa-brands fa-git-alt',
         titulo: 'Git',
     },
 ]
