@@ -5,14 +5,9 @@ export const certificatesList: Certificate[] = [
         title: 'Backend'
     },
     {
-        img: '../../assets/img/certificado2.jpg',
+        img: '../../assets/img/certificado8.jpg',
         alt: 'Certificado Udemy',
-        title: 'Fronted'
-    },
-    {
-        img: '../../assets/img/certificado3.jpg',
-        alt: 'Certificado Udemy',
-        title: 'Marketing'
+        title: 'Backend'
     },
     {
         img: '../../assets/img/certificado4.jpg',
@@ -20,24 +15,9 @@ export const certificatesList: Certificate[] = [
         title: 'Backend'
     },
     {
-        img: '../../assets/img/certificado5.jpg',
-        alt: 'Certificado Google',
-        title: 'Fronted'
-    },
-    {
-        img: '../../assets/img/certificado6.jpg',
-        alt: 'Certificado Google',
-        title: 'Fronted'
-    },
-    {
         img: '../../assets/img/certificado7.jpg',
         alt: 'Certificado Udemy',
         title: 'Fronted'
-    },
-    {
-        img: '../../assets/img/certificado8.jpg',
-        alt: 'Certificado Udemy',
-        title: 'Backend'
     },
     {
         img: '../../assets/img/certificado9.jpg',
@@ -48,11 +28,6 @@ export const certificatesList: Certificate[] = [
         img: '../../assets/img/certificado10.jpg',
         alt: 'Certificado Udemy',
         title: 'Ciberseguridad'
-    },
-    {
-        img: '../../assets/img/certificado11.jpg',
-        alt: 'Certificado Udemy',
-        title: 'Excel'
     }
 ]
 

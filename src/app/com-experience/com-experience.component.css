@@ -87,5 +87,14 @@
 }
 
 .indications{
-	font-size: 13px;
+	font-size: 5rem;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin: 1rem;
+	color: var(--main-color);
+}
+
+.indications i{
+	margin: 1rem;
 }
