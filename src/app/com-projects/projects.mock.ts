@@ -1,5 +1,13 @@
 export const projectsList: Project[] = [
     {
+      img: '../../assets/img/proyecto6.jpeg',
+      alt: 'Página web completa',
+      title: 'Página MG',
+      description: 'Un sitio web completo ideal para pequeños/medianos emprendedores u emprendimientos, vital para la muestra de sus productos/servicios.',
+      link: 'https://pagina-mg.netlify.app/',
+      showButton: true
+    },
+    {
       img: '../../assets/img/proyecto1.jpg',
       alt: 'App para fiestas - App para beber',
       title: 'Trago Loco',
@@ -36,14 +44,6 @@ export const projectsList: Project[] = [
       alt: 'Sistema web para óptica',
       title: 'Sistema Óptica',
       description: 'Una solución integral para la gestión de una óptica; incluyendo inventario, reporte de actividades, registro de clientes, control de productos y ventas.',
-      link: '',
-      showButton: false
-    },
-    {
-      img: '../../assets/img/proyecto6.jpg',
-      alt: 'API Rest de países',
-      title: 'Sistema de Países',
-      description: 'Una aplicación que permite el manejo de registros de países mediante API REST, demostrando habilidades en el manejo y control de datos.',
       link: '',
       showButton: false
     }
