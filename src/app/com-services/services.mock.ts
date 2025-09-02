@@ -29,15 +29,23 @@ export const servicesList: Service[] = [
     },
     {
         icono: 'iconos fa-solid fa-database',
-        titulo: 'MySQL',
+        titulo: 'SQL',
     },
     {
         icono: 'iconos fa-solid fa-leaf',
-        titulo: 'MongoDB',
+        titulo: 'Spring Boot',
     },
     {
         icono: 'iconos fa-brands fa-git-alt',
         titulo: 'Git',
+    },
+    {
+        icono: 'iconos fa-brands fa-java',
+        titulo: 'Java',
+    },
+    {
+        icono: 'iconos fa-brands fa-envira',
+        titulo: 'MongoDB',
     },
 ]
 
