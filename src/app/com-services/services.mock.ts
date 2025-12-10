@@ -47,6 +47,10 @@ export const servicesList: Service[] = [
         icono: 'iconos fa-brands fa-envira',
         titulo: 'MongoDB',
     },
+    {
+        icono: 'iconos fa-brands fa-flutter',
+        titulo: 'Flutter',
+    },
 ]
 
 export interface Service {

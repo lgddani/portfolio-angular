@@ -20,9 +20,9 @@ export const certificatesList: Certificate[] = [
         title: 'Fronted'
     },
     {
-        img: '../../assets/img/certificado9.jpg',
+        img: '../../assets/img/certificado12.jpg',
         alt: 'Certificado Udemy',
-        title: 'Ciberseguridad'
+        title: 'Móvil'
     },
     {
         img: '../../assets/img/certificado10.jpg',

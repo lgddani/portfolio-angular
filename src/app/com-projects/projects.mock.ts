@@ -9,10 +9,10 @@ export const projectsList: Project[] = [
     },
     {
       img: '../../assets/img/proyecto1.jpg',
-      alt: 'App para fiestas - App para beber',
-      title: 'Trago Loco',
-      description: 'Una divertida app con minijuegos de bebida, perfecta para disfrutar con amigos o familiares en reuniones y fiestas.',
-      link: 'https://10038-rdenriquez2.github.io/trago_loco/',
+      alt: 'Menú Ecuatoriano',
+      title: 'Sabores del Ecuador',
+      description: 'Un menú digital de comidas ecuatorianas 100% responsive con efectos visuales atractivos a través de la librería GSAP.',
+      link: 'https://lgddani.github.io/menu-ecuatoriano/',
       showButton: true
     },
     {
