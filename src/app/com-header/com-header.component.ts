@@ -12,7 +12,11 @@ import { CommonModule } from '@angular/common';
 export class ComHeaderComponent {
   menuActive: boolean = false;
 
-  toggleMenu() {
+  toggleMenu(event?: Event) {
+    if (event) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
     this.menuActive = !this.menuActive;
   }
 

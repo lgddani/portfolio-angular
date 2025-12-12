@@ -3,17 +3,18 @@
         Daniel <span>Enriquez</span>
     </a>
 
-    <i *ngIf="!menuActive" class="fa-solid fa-bars" id="menu-icon" (click)="toggleMenu()"></i>
-    <i *ngIf="menuActive" class="fa-solid fa-xmark" id="menu-icon" (click)="toggleMenu()"></i>
-
     <nav class="navbar" [class.active]="menuActive">
-        <a href="#home">Inicio</a>
-        <a href="#skills">Habilidades</a>
-        <a href="#projects">Proyectos</a>
-        <a href="#experience">Experiencia</a>
-        <a href="#certificates">Certificados</a>
+        <a href="#home" (click)="closeMenu()">Inicio</a>
+        <a href="#skills" (click)="closeMenu()">Habilidades</a>
+        <a href="#projects" (click)="closeMenu()">Proyectos</a>
+        <a href="#experience" (click)="closeMenu()">Experiencia</a>
+        <a href="#certificates" (click)="closeMenu()">Certificados</a>
     </nav>
 
     <button class="gradient-btn" (click)="redirectToEmail()">Contáctame</button>
+
+    <button type="button" id="menu-icon" (click)="toggleMenu($event)">
+        <i class="fa-solid" [ngClass]="menuActive ? 'fa-xmark' : 'fa-bars'"></i>
+    </button>
 
 </header>

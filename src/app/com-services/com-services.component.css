@@ -62,3 +62,13 @@
 .iconos{
     font-size: 6rem;
 }
+
+@media (max-width: 480px) {
+	.services{
+		margin-top: -15rem;
+	}
+
+	.services2{
+		margin-top: -10rem;
+	}
+}

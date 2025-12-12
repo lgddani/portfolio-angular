@@ -27,7 +27,10 @@ span{
 	position: relative;
 	top: 4rem;
 	width: 18vw;
-	height: 18vw;
+	height: auto;
+	aspect-ratio: 1 / 1;
+	min-width: 200px;
+	max-width: 350px;
 	border-radius: 50%;
 	object-fit: cover;
 	object-position: top;
@@ -104,37 +107,9 @@ span{
 	box-shadow: 0 0 50px var(--main-color);
 }
 
-/* .text-animation{
-	font-size: 34px;
-	font-weight: 600;
-	min-width: 280px;
-}
-
-.text-animation span{
-	position: relative;
-}
-
-.text-animation span::before{
-	content: "Programador";
-	color: var(--main-color);
-	animation: words 20s infinite;
-}
-
-.text-animation span::after{
-	content: "";
-	background-color: var(--bg-color);
-	position: absolute;
-	width: calc(100% + 8px);
-	height: 100%;
-	border-left: 3px solid var(--bg-color);
-	right: -8px;
-	animation: cursor 0.6s infinite, typing 20s steps(14) infinite;
-} */
-
 #my-container{
 	margin: 20px;
 	height: 90px;
-	/* padding-right: 10rem; */
 }
 
 #my-container .hidden {
@@ -142,7 +117,6 @@ span{
 }
   
 #my-container .console-container {
-	/* font-family: Khula; */
 	font-size: 5em;
 	text-align: center;
 	height: 200px;
@@ -155,61 +129,107 @@ span{
 #my-container .console-underscore {
 	display: inline-block;
 	position: relative;
-	/* top: -0.14em; */
 	left: 10px;
 }
   
 
-/* @keyframes cursor{
-	to{
-		border-left: 2px solid var(--main-color);
-	}
-} */
+/* Media Queries para dispositivos móviles y tablets */
 
-/* @keyframes words{
-	0%,
-	20%{
-		content: "Programador";
-	}
-	21%,
-	40%{
-		content: "Desarrollador Web";
-	}
-	41%,
-	60%{
-		content: "Ingeniero en TI";
-	}
-	61%,
-	80%{
-		content: "Codificador Backend";
-	}
-	81%,
-	100%{
-		content: "Tu mejor opción ;)";
-	}
-} */
+@media (max-width: 768px) {
 
-/* @keyframes typing{
-	10%,
-	15%,
-	30%,
-	35%,
-	50%,
-	55%,
-	70%,
-	75%,
-	90%,
-	95%{
-		width: 0;
+	.home-img img {
+		width: 250px;
+		height: auto;
+		top: 2rem;
 	}
-	5%,
-	20%,
-	25%,
-	40%,
-	45%,
-	60%,
-	80%,
-	85%{
-		width: calc(100% + 8px);
+
+	.home-content h1 {
+		font-size: 4.5rem;
 	}
-} */
+
+	.home-content h3 {
+		font-size: 2.5rem;
+	}
+
+	.home-content p {
+		font-size: 1.4rem;
+		padding: 0 2rem;
+	}
+
+	#my-container .console-container {
+		font-size: 3.5em;
+		width: 100%;
+	}
+
+	.social-icons .redes {
+		width: 4rem;
+		height: 4rem;
+		font-size: 2rem;
+		margin: 2rem 1rem 2rem 0;
+	}
+}
+
+/* Móviles pequeños */
+@media (max-width: 480px) {
+	.home-img img {
+		width: 220px;
+		height: auto;
+		top: 7rem;
+	}
+
+	.home-content h1 {
+		font-size: 3.5rem;
+		margin-top: 7rem;
+	}
+
+	.home-content h3 {
+		font-size: 2rem;
+		margin-bottom: 1.5rem;
+	}
+
+	.home-content p {
+		font-size: 1.3rem;
+		padding: 0 1.5rem;
+	}
+
+	#my-container {
+		height: 70px;
+	}
+
+	#my-container .console-container {
+		font-size: 2.5em;
+		width: 100%;
+	}
+
+	.social-icons .redes {
+		width: 3.5rem;
+		height: 3.5rem;
+		font-size: 1.8rem;
+		margin: 1.5rem 0.8rem 1.5rem 0;
+	}
+
+	.btn {
+		padding: 0.8rem 2rem;
+		font-size: 1.4rem;
+	}
+}
+
+/* Móviles muy pequeños */
+@media (max-width: 360px) {
+	.home-img img {
+		width: 200px;
+		height: auto;
+	}
+
+	.home-content h1 {
+		font-size: 3rem;
+	}
+
+	.home-content h3 {
+		font-size: 1.8rem;
+	}
+
+	#my-container .console-container {
+		font-size: 2em;
+	}
+}
