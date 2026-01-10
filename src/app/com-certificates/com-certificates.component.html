@@ -2,17 +2,10 @@
     <h2 class="heading">CERTIFICADOS</h2>
     <div class="projects-box">
         @for (certificate of certificateList; track certificate){
-            <div class="projects-card img-certificates">
+            <div class="projects-card img-certificates" (click)="openCertificate(certificate)">
                 <img [src]="certificate.img" [alt]="certificate.alt">
                 <h3>{{ certificate.title }}</h3>
             </div>
         }
     </div>
 </section>
-
-<!-- Modal -->
-<div id="myModal" class="modal">
-      <span class="close">&times;</span>
-          <img class="modal-content" id="modalImg" alt="Modal Image">
-      <div id="caption"></div>
-</div>
