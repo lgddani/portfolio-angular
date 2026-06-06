@@ -17,10 +17,10 @@ export const projectsList: Project[] = [
     },
     {
       img: '../../assets/img/proyecto2.jpg',
-      alt: 'ESPE - página universidad',
-      title: 'Página ESPE',
-      description: 'Una página web principal para la Universidad de las Fuerzas Armadas ESPE, incluyendo los requirimientos de WCAG para fácil acceso a personas con discapacidad.',
-      link: 'https://10038-rdenriquez2.github.io/pagina-espe/',
+      alt: 'Trago Loco - app de juegos de beber',
+      title: 'Trago Loco',
+      description: 'App Android de juegos de beber: ruletas, retos y dinámicas para animar cualquier reunión y/o fiesta.',
+      link: 'https://tragoloco.netlify.app/',
       showButton: true
     },
     {
