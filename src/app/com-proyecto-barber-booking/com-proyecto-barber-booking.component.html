@@ -1,0 +1,218 @@
+<main class="pd-wrap">
+
+    <a routerLink="/" fragment="projects" class="pd-back">
+        <i class="fa-solid fa-arrow-left"></i> Volver a proyectos
+    </a>
+
+    <!-- Hero -->
+    <section class="pd-hero">
+        <h1>Barber Booking System</h1>
+        <p class="pd-pitch">Un sistema de reservas full-stack para una barbería: tres roles con permisos reales, un motor de disponibilidad que entiende la duración de cada servicio, y una garantía a nivel de base de datos de que dos clientes nunca reservan el mismo horario con el mismo barbero — incluso bajo concurrencia real.</p>
+
+        <div class="pd-video">
+            <iframe src="https://www.youtube.com/embed/WUHLBbMUxZA?si=u6O40V5_cYjBj-kI" title="Barber Booking System — video demostrativo" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>
+        </div>
+
+        <div class="pd-stats">
+            <div class="pd-stat">
+                <span class="pd-stat-num">46</span>
+                <span class="pd-stat-label">tests de backend en verde</span>
+            </div>
+            <div class="pd-stat">
+                <span class="pd-stat-num">15</span>
+                <span class="pd-stat-label">hilos reales peleando por un horario</span>
+            </div>
+            <div class="pd-stat">
+                <span class="pd-stat-num">3</span>
+                <span class="pd-stat-label">roles con permisos propios</span>
+            </div>
+            <div class="pd-stat">
+                <span class="pd-stat-num">2</span>
+                <span class="pd-stat-label">imágenes Docker en dos etapas</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contexto -->
+    <section class="pd-block">
+        <h2>No es solo agendar una hora</h2>
+        <p>Barber Booking System gestiona las citas de una barbería, pero el reto no es la agenda en sí: es evitar que dos personas reserven el mismo horario con el mismo barbero, calcular qué horarios están realmente disponibles tomando en cuenta el horario de trabajo de cada barbero, sus días libres y cuánto dura cada servicio, y asegurar que cliente, barbero y administrador solo puedan hacer lo que les corresponde. Es un proyecto de portafolio — ninguna barbería real lo usa —, pero está construido con el mismo cuidado que tendría un producto real.</p>
+
+        <h3>¿Por qué no hay una demo en vivo?</h3>
+        <p>Los planes gratuitos de hosting para backend "duermen" la API tras un rato sin uso: el primer clic de alguien revisando esto se habría encontrado con 30-50 segundos de carga fría antes de ver algo, peor primera impresión que no tener demo. En su lugar está el video de arriba, grabado sobre el mismo stack que valida el CI en cada push — y todo el proyecto se levanta en tu propia máquina con un solo comando (lo ves más abajo, en "Reproducible por cualquiera").</p>
+    </section>
+
+    <!-- Tres roles -->
+    <section class="pd-block">
+        <h2>Tres roles, tres pantallas distintas</h2>
+        <p>No es una sola pantalla con permisos maquillados detrás: cada rol tiene su propia interfaz, construida para lo que ese rol necesita hacer.</p>
+
+        <div class="pd-roles-grid">
+            <figure (click)="openImage('assets/img/barber-booking-system/rol-cliente-reservar.png')">
+                <img src="assets/img/barber-booking-system/rol-cliente-reservar.png" alt="Pantalla de reserva de cita para el cliente">
+                <figcaption><strong>Cliente</strong> — elige servicio, barbero y horario en una cuadrícula que solo muestra huecos realmente libres; si alguien se adelanta por una fracción de segundo, ve un aviso claro en vez de un error técnico.</figcaption>
+            </figure>
+
+            <figure (click)="openImage('assets/img/barber-booking-system/rol-barbero-agenda.png')">
+                <img src="assets/img/barber-booking-system/rol-barbero-agenda.png" alt="Agenda diaria del barbero">
+                <figcaption><strong>Barbero</strong> — su agenda del día: marca cada cita como completada, cancelada o "no se presentó", y define su horario semanal (incluyendo turnos partidos) y sus bloqueos puntuales.</figcaption>
+            </figure>
+
+            <figure (click)="openImage('assets/img/barber-booking-system/rol-admin-servicios.png')">
+                <img src="assets/img/barber-booking-system/rol-admin-servicios.png" alt="Panel de administrador, pantalla de servicios">
+                <figcaption><strong>Administrador</strong> — catálogo de servicios y barberos con baja lógica (nunca se borra nada, para no romper el historial), todas las citas del negocio y estadísticas por rango de fechas.</figcaption>
+            </figure>
+        </div>
+    </section>
+
+    <!-- Concurrencia -->
+    <section class="pd-block">
+        <h2>Desafío técnico — que dos personas no se lleven el mismo horario</h2>
+        <p>La solución obvia es un bloqueo a nivel de aplicación, o un <code>SELECT ... FOR UPDATE</code> de verificar-y-luego-insertar. Ambas funcionan — hasta que hay más de una instancia del backend corriendo, momento en el que la garantía deja de sostenerse en silencio. La decisión fue trasladar esa regla al único lugar que es autoritativo sin importar cuántas instancias existan: la propia base de datos.</p>
+
+        <pre class="pd-code"><code>CREATE EXTENSION IF NOT EXISTS btree_gist;
+
+ALTER TABLE appointments
+  ADD CONSTRAINT no_overlap_per_barber
+  EXCLUDE USING gist (barber_id WITH =, slot WITH &amp;&amp;)
+  WHERE (status NOT IN ('CANCELLED', 'NO_SHOW'));
+
+ALTER TABLE appointments
+  ADD CONSTRAINT no_overlap_per_customer
+  EXCLUDE USING gist (customer_id WITH =, slot WITH &amp;&amp;)
+  WHERE (status NOT IN ('CANCELLED', 'NO_SHOW'));</code></pre>
+
+        <p>Si dos peticiones intentan reservar al mismo barbero en un horario que se solapa, PostgreSQL deja pasar exactamente un <code>INSERT</code> y rechaza el otro con una violación de restricción — de forma atómica, sin ningún bloqueo explícito escrito a mano.</p>
+
+        <figure class="pd-single" (click)="openImage('assets/img/barber-booking-system/tests-terminal-verde.png')">
+            <img src="assets/img/barber-booking-system/tests-terminal-verde.png" alt="Terminal mostrando mvn verify con todos los tests en verde">
+            <figcaption>46 tests de backend en verde, incluida la prueba que dispara 15 hilos reales contra el mismo horario y confirma que sobrevive exactamente una reserva.</figcaption>
+        </figure>
+
+        <h3>El hallazgo más interesante del proyecto</h3>
+        <p>Con 12 peticiones concurrentes de prueba manual, solo aparecía el modo de falla "limpio" (una violación de restricción). Al automatizar la prueba con 15 hilos reales apareció una segunda variante: bajo suficiente presión, Postgres a veces detecta que varias transacciones se esperan entre sí en círculo y cancela una con <code>deadlock detected</code> en vez de la violación esperada.</p>
+
+        <figure class="pd-single" (click)="openImage('assets/img/barber-booking-system/deadlock-logs.png')">
+            <img src="assets/img/barber-booking-system/deadlock-logs.png" alt="Logs del backend mostrando un deadlock detectado por Postgres">
+            <figcaption>Logs reales del backend: dos procesos de Postgres esperándose en círculo (SQLState 40P01) durante la prueba de 15 hilos.</figcaption>
+        </figure>
+
+        <p>Para quien está reservando, ambos casos significan exactamente lo mismo —alguien más se quedó con ese horario—, así que el código traduce las dos variantes al mismo <code>409 Conflict</code>. La lección: probar con pocos casos concurrentes (2-3) puede no ser suficiente para encontrar todos los modos de falla reales; algunos solo aparecen bajo carga de verdad.</p>
+    </section>
+
+    <!-- Motor de disponibilidad -->
+    <section class="pd-block">
+        <h2>Desafío técnico — calcular qué horarios están realmente libres</h2>
+        <p>Esto no es una sola consulta. Hay que combinar la plantilla semanal recurrente del barbero con las excepciones de esa fecha puntual —un día cerrado, o un horario especial que <em>reemplaza</em> al habitual, no que se le suma—, considerar la duración exacta del servicio pedido, descartar lo que ya está ocupado, y descartar lo que ya pasó si es el mismo día.</p>
+
+        <div class="pd-diagram">
+            <svg viewBox="0 0 800 450" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Diagrama: el motor de disponibilidad combina el horario semanal, las excepciones, la duración del servicio y las citas existentes para calcular los horarios libres">
+                <defs>
+                    <marker id="pd-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                        <path d="M0,0 L10,5 L0,10 z" fill="var(--main-color)"></path>
+                    </marker>
+                </defs>
+
+                <g font-family="Poppins, sans-serif" text-anchor="middle">
+                    <rect x="10" y="20" width="180" height="100" rx="14" fill="var(--bg-color)" stroke="var(--main-color)" stroke-width="2"></rect>
+                    <text x="100" y="62" fill="#fff" font-size="16">
+                        <tspan x="100" dy="0">Horario semanal</tspan>
+                        <tspan x="100" dy="22">del barbero</tspan>
+                    </text>
+
+                    <rect x="210" y="20" width="180" height="100" rx="14" fill="var(--bg-color)" stroke="var(--main-color)" stroke-width="2"></rect>
+                    <text x="300" y="62" fill="#fff" font-size="16">
+                        <tspan x="300" dy="0">Excepciones</tspan>
+                        <tspan x="300" dy="22">de esa fecha</tspan>
+                    </text>
+
+                    <rect x="410" y="20" width="180" height="100" rx="14" fill="var(--bg-color)" stroke="var(--main-color)" stroke-width="2"></rect>
+                    <text x="500" y="62" fill="#fff" font-size="16">
+                        <tspan x="500" dy="0">Duración del</tspan>
+                        <tspan x="500" dy="22">servicio elegido</tspan>
+                    </text>
+
+                    <rect x="610" y="20" width="180" height="100" rx="14" fill="var(--bg-color)" stroke="var(--main-color)" stroke-width="2"></rect>
+                    <text x="700" y="62" fill="#fff" font-size="16">
+                        <tspan x="700" dy="0">Citas que ya</tspan>
+                        <tspan x="700" dy="22">existen ese día</tspan>
+                    </text>
+                </g>
+
+                <g stroke="var(--main-color)" stroke-width="2" fill="none" marker-end="url(#pd-arrow)">
+                    <path d="M100,120 L275,205"></path>
+                    <path d="M300,120 L355,205"></path>
+                    <path d="M500,120 L445,205"></path>
+                    <path d="M700,120 L525,205"></path>
+                </g>
+
+                <rect x="220" y="210" width="360" height="90" rx="16" fill="rgba(78,126,253,0.15)" stroke="var(--main-color)" stroke-width="3"></rect>
+                <text x="400" y="248" fill="var(--main-color)" font-size="20" font-weight="700" text-anchor="middle">
+                    <tspan x="400" dy="0">Motor de</tspan>
+                    <tspan x="400" dy="26">disponibilidad</tspan>
+                </text>
+
+                <path d="M400,300 L400,338" stroke="var(--main-color)" stroke-width="3" fill="none" marker-end="url(#pd-arrow)"></path>
+
+                <rect x="180" y="345" width="440" height="90" rx="16" fill="var(--main-color)"></rect>
+                <text x="400" y="397" fill="#fff" font-size="19" font-weight="600" text-anchor="middle">Horarios realmente libres ese día</text>
+            </svg>
+        </div>
+
+        <p>Al ser una función pura (mismos datos de entrada, mismo resultado, sin efectos secundarios) terminó siendo la pieza con más cobertura de tests unitarios del proyecto: casos límite como un servicio que por poco no alcanza a caber antes del cierre, o una excepción de horario completamente distinto al habitual, se prueban de forma directa.</p>
+    </section>
+
+    <!-- Diseño -->
+    <section class="pd-block">
+        <h2>Del mockup al resultado</h2>
+        <p>Antes de escribir una sola línea de Angular, se armaron y compararon dos opciones de estilo visual con una herramienta de mockups: una cálida, propia de una barbería real, y otra minimalista tipo SaaS genérico. Ganó la cálida — encajaba mejor con lo que el sistema realmente es.</p>
+
+        <p>Más adelante, para el panel de administrador, partí de una referencia visual de un dashboard más profesional. Antes de tocar código se conversó el alcance —qué tan real hacer la campana de notificaciones, si rediseñar todas las pantallas de una vez o empezar por una— para no comprometerme a más trabajo del necesario en esa pasada. El resultado: Servicios, Barberos y Citas pasaron de tarjetas fijas a tablas de verdad con buscador, paginador y un formulario en modal centrado. Estadísticas no encajaba en ese mismo patrón —no es una lista de cosas que administrar, son números resumidos— así que se le dio su propio tratamiento: tarjetas con ícono y barras proporcionales por estado.</p>
+
+        <figure class="pd-single" (click)="openImage('assets/img/barber-booking-system/rol-admin-servicios.png')">
+            <img src="assets/img/barber-booking-system/rol-admin-servicios.png" alt="Pantalla de Servicios ya rediseñada, con tabla, buscador y paginador">
+            <figcaption>El resultado: Servicios ya rediseñado — tabla, buscador y paginador.</figcaption>
+        </figure>
+    </section>
+
+    <!-- Librería de componentes -->
+    <section class="pd-block">
+        <h2>Una decisión de criterio, no de un bug</h2>
+        <p>No todo en este proyecto fue arreglar algo roto — a veces fue elegir bien entre opciones que sí funcionaban. Para el frontend se probó primero spartan/ui, pero todas sus versiones publicadas piden una versión de Angular más nueva que la que usa este proyecto: se descartó sin forzar una combinación que nunca iba a sostenerse. La segunda opción, PrimeNG, sí calzaba en versión —compiló bien— pero esa versión específica requería una licencia paga, un modelo de negocio legítimo que no encaja con un portafolio que cualquiera debería poder clonar y correr gratis. Terminé optando por Angular Material: la librería oficial del propio equipo de Angular, siempre gratuita y alineada en versión el mismo día que sale cada release.</p>
+    </section>
+
+    <!-- Reproducible -->
+    <section class="pd-block">
+        <h2>Reproducible por cualquiera, no solo en mi máquina</h2>
+        <p>Base de datos, backend y frontend se levantan juntos con un solo comando: <code>docker compose up --build</code>. Ambos servicios usan Dockerfiles de dos etapas —una que compila (Maven o npm), y otra, mucho más liviana, que solo carga el resultado ya compilado para ejecutarlo— así la imagen final no arrastra las herramientas de build. nginx sirve el frontend ya compilado y de paso hace de puente hacia el backend dentro de la red privada de Docker, sin que el navegador necesite saber que en realidad son dos servidores distintos.</p>
+
+        <div class="pd-evidence-grid">
+            <figure (click)="openImage('assets/img/barber-booking-system/docker-build-backend.png')">
+                <img src="assets/img/barber-booking-system/docker-build-backend.png" alt="Terminal mostrando el build de dos etapas del backend con Docker">
+                <figcaption>Build de dos etapas del backend: compila con Maven, y la imagen final solo copia el .jar ya listo.</figcaption>
+            </figure>
+
+            <figure (click)="openImage('assets/img/barber-booking-system/docker-build-frontend.png')">
+                <img src="assets/img/barber-booking-system/docker-build-frontend.png" alt="Terminal mostrando el build de dos etapas del frontend con Docker">
+                <figcaption>Mismo enfoque en el frontend: build de Angular, servido después por nginx.</figcaption>
+            </figure>
+        </div>
+
+        <p>Cada push dispara GitHub Actions: el backend corre sus 46 tests completos levantando su propio Postgres real vía Testcontainers —igual que en cualquier máquina—, y el frontend compila la aplicación Angular. Así, si algo se rompe, se sabe de inmediato sin que nadie tenga que acordarse de correrlo a mano.</p>
+    </section>
+
+    <!-- Cierre -->
+    <section class="pd-block pd-closing">
+        <h2>Código, tests y CI en vivo</h2>
+
+        <figure (click)="openImage('assets/img/barber-booking-system/readme-badges.png')">
+            <img src="assets/img/barber-booking-system/readme-badges.png" alt="README del repositorio con los badges de CI en verde">
+            <figcaption>Backend CI y Frontend CI, en verde, en cada push.</figcaption>
+        </figure>
+
+        <p>Todo el código, la bitácora de decisiones y los 46 tests están en el repositorio.</p>
+
+        <a [href]="repoUrl" target="_blank" rel="noopener" class="pd-btn">Ver el repositorio en GitHub</a>
+    </section>
+
+</main>

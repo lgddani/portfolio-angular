@@ -1,5 +1,6 @@
 import { Component, ViewEncapsulation } from '@angular/core';
-import { projectsList } from './projects.mock';
+import { Router } from '@angular/router';
+import { Project, projectsList } from './projects.mock';
 
 @Component({
   selector: 'app-com-projects',
@@ -12,7 +13,14 @@ import { projectsList } from './projects.mock';
 
 export class ComProjectsComponent {
   projectsList = projectsList;
-  goToLink(url: string) {
-    window.open(url, '_blank');
+
+  constructor(private router: Router) { }
+
+  goToProject(project: Project) {
+    if (project.internalRoute) {
+      this.router.navigateByUrl(project.internalRoute);
+    } else {
+      window.open(project.link, '_blank');
+    }
   }
 }

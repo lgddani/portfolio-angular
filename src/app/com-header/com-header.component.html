@@ -1,14 +1,14 @@
 <header class="header">
-    <a href="#home" class="logo">
+    <a routerLink="/" fragment="home" class="logo">
         Daniel <span>Enriquez</span>
     </a>
 
     <nav class="navbar" [class.active]="menuActive">
-        <a href="#home" (click)="closeMenu()">Inicio</a>
-        <a href="#skills" (click)="closeMenu()">Habilidades</a>
-        <a href="#projects" (click)="closeMenu()">Proyectos</a>
-        <a href="#experience" (click)="closeMenu()">Experiencia</a>
-        <a href="#certificates" (click)="closeMenu()">Certificados</a>
+        <a routerLink="/" fragment="home" (click)="closeMenu()">Inicio</a>
+        <a routerLink="/" fragment="skills" (click)="closeMenu()">Habilidades</a>
+        <a routerLink="/" fragment="projects" (click)="closeMenu()">Proyectos</a>
+        <a routerLink="/" fragment="experience" (click)="closeMenu()">Experiencia</a>
+        <a routerLink="/" fragment="certificates" (click)="closeMenu()">Certificados</a>
     </nav>
 
     <button class="gradient-btn" (click)="redirectToEmail()">Contáctame</button>

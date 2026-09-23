@@ -1,5 +1,14 @@
 export const projectsList: Project[] = [
     {
+      img: '../../assets/img/barber-booking-system/rol-cliente-reservar.png',
+      alt: 'Barber Booking System - flujo de reserva del cliente',
+      title: 'Barber Booking System',
+      description: 'Sistema de reservas full-stack para una barbería con tres roles y una garantía a nivel de base de datos contra el doble-booking, incluso bajo concurrencia real.',
+      link: '',
+      internalRoute: '/proyectos/barber-booking-system',
+      showButton: true
+    },
+    {
       img: '../../assets/img/proyecto6.jpeg',
       alt: 'Página web completa',
       title: 'Página MG',
@@ -56,4 +65,5 @@ export interface Project {
   description: String;
   link: string;
   showButton: boolean;
+  internalRoute?: string;
 }
