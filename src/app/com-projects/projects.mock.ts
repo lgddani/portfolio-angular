@@ -47,14 +47,6 @@ export const projectsList: Project[] = [
       description: 'Una completa plataforma de comercio electrónico, con funcionalidades de navegación de productos, carrito de compras y gestión de pagos.',
       link: '',
       showButton: false
-    },
-    {
-      img: '../../assets/img/proyecto5.jpg',
-      alt: 'Sistema web para óptica',
-      title: 'Sistema Óptica',
-      description: 'Una solución integral para la gestión de una óptica; incluyendo inventario, reporte de actividades, registro de clientes, control de productos y ventas.',
-      link: '',
-      showButton: false
     }
 ]
 
